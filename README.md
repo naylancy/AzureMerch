@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛍️ AzureMerch - POS & Warehouse Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> **AzureMerch** adalah sistem aplikasi web berbasis **Laravel 10** yang mengintegrasikan sistem **Point of Sale (POS)** kasir ritel dengan **Manajemen Inventaris Gudang (Warehouse)** secara real-time, dirancang khusus untuk toko official merchandise (K-Pop albums, photocards, apparel, lightsticks, dan collectibles).
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 👥 Akun Default & Hak Akses (Credentials)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Sistem ini menggunakan **Role-Based Access Control (RBAC)** dengan middleware khusus untuk memastikan keamanan dan isolasi hak akses antar pengguna.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Berikut adalah daftar akun demo yang tersedia (dibuat via seeder `php artisan db:seed`):
 
-## Learning Laravel
+| Role | Nama Pengguna | Username | Email | Password | Hak Akses Utama |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **👑 Administrator** | Min Yoongi | `admin` | `admin@azuremerch.com` | `password` | Executive Dashboard, Analitik Finansial, Laporan Penjualan, & Audit Log |
+| **🛒 Kasir (Cashier)** | Kim Jennie | `kasir` | `kasir@azuremerch.com` | `password` | POS Desktop UI, Scan Barcode, Keranjang Kasir, Cetak Struk, Riwayat Transaksi |
+| **📦 Staf Gudang** | Bang Chan | `gudang` | `gudang@azuremerch.com` | `password` | Mobile-First UI, CRUD Produk & Kategori, Inbound Shipment, Stock Opname & Logs |
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🌟 Fitur Utama Berdasarkan Modul
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. 👑 Modul Administrator (`/admin`)
+- **Dashboard Ringkasan Eksekutif:** Grafik pendapatan harian/bulanan, total penjualan, dan profit margin.
+- **Laporan Penjualan & Finansial:** Rekapitulasi transaksi berdasarkan rentang tanggal, filter metode pembayaran, dan export data.
+- **Audit & Security Logs:** Pencatatan setiap aktivitas penting (perubahan stok, otorisasi login, dan transaksi).
 
-## Laravel Sponsors
+### 2. 🛒 Modul Kasir / POS (`/pos`)
+- **UI Khusus Desktop:** Tampilan POS yang dioptimalkan untuk kasir toko ritel.
+- **Pencarian Cepat & Scan Barcode:** Cari produk berdasarkan nama, kode SKU, atau pemindaian barcode langsung.
+- **Manajemen Keranjang Belanja:** Perhitungan subtotal, diskon, pajak, dan kembalian secara otomatis.
+- **Multi-Payment Method:** Mendukung pembayaran Tunai (Cash), QRIS, Transfer Bank, dan Kartu Debit/Kredit.
+- **Struk Digital & Cetak:** Cetak struk belanja rapi dengan layout thermal printer receipt.
+- **Histori Transaksi Kasir:** Melihat kembali riwayat struk penjualan yang telah selesai.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 3. 📦 Modul Gudang / Inventory (`/warehouse`)
+- **Desain Mobile-First:** Nyaman digunakan oleh staf gudang melalui smartphone / tablet saat melakukan pengecekan rak.
+- **Katalog Produk & Kategori:** Kelola data produk (nama, artis/grup, SKU, barcode, harga modal, harga jual, foto produk).
+- **Inbound Shipment (Stok Masuk):** Input penerimaan barang dari supplier/distributor ke gudang secara sistematis.
+- **Stock Opname & Penyesuaian:** Menyesuaikan selisih stok fisik vs stok sistem dengan catatan alasan.
+- **Kartu Stok / Stock Logs:** Pelacakan riwayat masuk dan keluarnya stok barang secara transparan.
 
-### Premium Partners
+### 4. 👤 Pengaturan Profil (`/profile`)
+- Semua role yang sedang login dapat mengupdate informasi akun (nama, email, no. telepon, dan password).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+---
 
-## Contributing
+## 🛠️ Teknologi yang Digunakan
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Backend:** [PHP 8.1+](https://www.php.net/) & [Laravel 10](https://laravel.com/)
+- **Frontend:** Blade Templating, Tailwind CSS, Alpine.js, Lucide Icons
+- **Build Tool:** Vite
+- **Database:** MySQL
+- **Autentikasi:** Custom Laravel Session Authentication + Multi-Role Middleware (`UAdmin`, `UKasir`, `UGudang`)
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Panduan Instalasi Lokal (Setup)
 
-## Security Vulnerabilities
+Bagi pengembang yang ingin menjalankan project ini di komputer lokal (misal menggunakan Laragon/XAMPP):
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/naylancy/AzureMerch.git
+   cd AzureMerch
+   ```
 
-## License
+2. **Install Dependensi PHP & Node.js**
+   ```bash
+   composer install
+   npm install
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. **Konfigurasi Environment**
+   Salin file konfigurasi `.env.example`:
+   ```bash
+   cp .env.example .env
+   ```
+   Buka file `.env` dan sesuaikan koneksi database MySQL Anda:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=azuremerch
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+4. **Generate Application Key**
+   ```bash
+   php artisan key:generate
+   ```
+
+5. **Migrasi Database & Seeding Data Awal**
+   Perintah ini akan membuat semua tabel dan mengisi data akun pengguna, kategori, serta produk awal:
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+
+6. **Kompilasi Asset Frontend**
+   ```bash
+   npm run build
+   # atau untuk mode development:
+   # npm run dev
+   ```
+
+7. **Jalankan Aplikasi**
+   ```bash
+   php artisan serve
+   ```
+   Buka browser di: **`http://127.0.0.1:8000`**
+
+---
+
+## 📄 Lisensi
+
+Project ini dikembangkan untuk kebutuhan manajemen internal AzureMerch di bawah lisensi terbuka [MIT License](LICENSE).
